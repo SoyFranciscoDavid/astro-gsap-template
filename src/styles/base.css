@@ -1,0 +1,12 @@
+/* Fuentes - Inter como fuente principal del sistema */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* Importación de módulos de estilo */
+@import "./variables.css";
+@import "./reset.css";
+@import "./utilities.css";
+
+/* Directivas de Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

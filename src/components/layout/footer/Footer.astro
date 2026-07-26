@@ -1,0 +1,33 @@
+---
+import Container from "@components/ui/Container.astro";
+import SocialLinks from "@components/common/SocialLinks.astro";
+import { siteConfig } from "@data/siteConfig";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+  class="border-t border-[var(--border-color)] bg-[var(--bg-primary)] py-12 text-[var(--text-secondary)]"
+>
+  <Container
+    class="flex flex-col md:flex-row items-center justify-between gap-6"
+  >
+    <!-- Brand Info -->
+    <div>
+      <span
+        class="text-lg font-bold tracking-tighter text-[var(--text-primary)]"
+        >{siteConfig.name}.</span
+      >
+      <p class="text-xs text-[var(--text-muted)] mt-1">{siteConfig.slogan}</p>
+    </div>
+
+    <!-- Social Links -->
+    <SocialLinks size="sm" />
+
+    <!-- Copyright -->
+    <div class="text-xs text-[var(--text-muted)]">
+      &copy; {currentYear}
+      {siteConfig.name}. Todos los derechos reservados.
+    </div>
+  </Container>
+</footer>

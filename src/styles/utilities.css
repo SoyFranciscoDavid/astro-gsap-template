@@ -1,0 +1,26 @@
+@layer utilities {
+  /* Regla de oro para animaciones GSAP: Oculta el elemento antes de que GSAP tome el control */
+  .gsap-hide {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  /* Gradiente de texto elegante */
+  .text-gradient {
+    background: linear-gradient(
+      180deg,
+      var(--text-primary) 0%,
+      var(--text-muted) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Efecto Glassmorphism */
+  .glass {
+    background-color: var(--bg-secondary);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+  }
+}

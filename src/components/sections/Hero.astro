@@ -1,0 +1,66 @@
+---
+import { cn } from "@utils/cn";
+import Button from "@components/ui/Button.astro";
+import { siteConfig } from "@data/siteConfig";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const { hero } = siteConfig;
+---
+
+<section
+  data-hero-container
+  class={cn(
+    "relative min-h-screen flex flex-col items-center justify-center text-center px-4",
+    className,
+  )}
+>
+  <!-- Badge -->
+  <span
+    data-hero-badge
+    class="gsap-hide inline-block rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] px-4 py-1.5 text-xs font-medium text-[var(--text-secondary)] mb-8"
+  >
+    {hero.badge}
+  </span>
+
+  <!-- Title -->
+  <h1
+    data-hero-title
+    class="gsap-hide text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight max-w-4xl leading-tight"
+  >
+    {hero.title}
+    <span class="text-gradient">{hero.titleHighlight}</span>
+  </h1>
+
+  <!-- Description -->
+  <p
+    data-hero-subtitle
+    class="gsap-hide text-lg md:text-xl text-[var(--text-secondary)] mt-6 max-w-2xl"
+  >
+    {hero.description}
+  </p>
+
+  <!-- CTAs -->
+  <div
+    data-hero-cta
+    class="gsap-hide flex flex-col sm:flex-row items-center gap-4 mt-10"
+  >
+    <Button variant="primary" size="lg" href={hero.primaryCta.href}>
+      {hero.primaryCta.label}
+    </Button>
+    <Button variant="outline" size="lg" href={hero.secondaryCta.href}>
+      {hero.secondaryCta.label}
+    </Button>
+  </div>
+</section>
+
+<script>
+  import { initHeroAnimation } from "@scripts/animations/hero";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initHeroAnimation();
+  });
+</script>

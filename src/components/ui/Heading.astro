@@ -1,0 +1,22 @@
+---
+import { cn } from "@utils/cn";
+
+interface Props {
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  size?: "h1" | "h2" | "h3" | "h4";
+  class?: string;
+}
+
+const { as: Tag = "h2", size = "h2", class: className } = Astro.props;
+
+const sizes = {
+  h1: "text-4xl sm:text-6xl font-bold tracking-tight",
+  h2: "text-3xl sm:text-4xl font-semibold tracking-tight",
+  h3: "text-2xl sm:text-3xl font-medium",
+  h4: "text-xl font-medium",
+};
+---
+
+<Tag class={cn(sizes[size], "text-[var(--text-primary)]", className)}>
+  <slot />
+</Tag>

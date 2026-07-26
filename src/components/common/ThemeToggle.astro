@@ -1,0 +1,73 @@
+---
+import Icon from "@components/ui/Icon.astro";
+import { cn } from "@utils/cn";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Cambiar tema"
+  class={cn(
+    "relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/50 text-[var(--text-secondary)] transition-colors hover:border-[var(--border-focus)] hover:text-[var(--text-primary)] focus:outline-none",
+    className,
+  )}
+>
+  <!-- Ícono Sol (Visible en Modo Oscuro) -->
+  <span class="theme-icon-dark">
+    <Icon name="ri:sun-line" class="h-5 w-5" />
+  </span>
+
+  <!-- Ícono Luna (Visible en Modo Claro) -->
+  <span class="theme-icon-light hidden">
+    <Icon name="ri:moon-line" class="h-5 w-5" />
+  </span>
+</button>
+
+<script>
+  // Lógica de alternancia en el cliente
+  const initThemeToggle = () => {
+    const toggleBtn = document.querySelector("[data-theme-toggle]");
+    if (!toggleBtn) return;
+
+    const darkIcon = toggleBtn.querySelector(".theme-icon-dark");
+    const lightIcon = toggleBtn.querySelector(".theme-icon-light");
+
+    const updateIcons = (isDark: boolean) => {
+      if (isDark) {
+        darkIcon?.classList.remove("hidden");
+        lightIcon?.classList.add("hidden");
+      } else {
+        darkIcon?.classList.add("hidden");
+        lightIcon?.classList.remove("hidden");
+      }
+    };
+
+    // Sincronizar estado inicial de íconos
+    const isDark = document.documentElement.classList.contains("dark");
+    updateIcons(isDark);
+
+    toggleBtn.addEventListener("click", () => {
+      const isCurrentlyDark =
+        document.documentElement.classList.contains("dark");
+      const newTheme = isCurrentlyDark ? "light" : "dark";
+
+      if (newTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      localStorage.setItem("theme", newTheme);
+      updateIcons(newTheme === "dark");
+    });
+  };
+
+  // Ejecutar en carga inicial
+  initThemeToggle();
+</script>
