@@ -1,108 +1,106 @@
-@layer base {
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden; /* Evita scroll horizontal por animaciones de GSAP que se salen de pantalla */
+  margin: 0;
+}
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img,
+video {
+  object-fit: cover;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+input,
+textarea {
+  background: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  overflow-wrap: break-word;
+}
+
+#root,
+#app {
+  isolation: isolate;
+}
+
+/* Selección de texto estilizada */
+::selection {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+/* Reducir animaciones si el usuario lo configuró en su SO */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   ::before,
   ::after {
-    box-sizing: border-box;
-  }
-
-  html {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-
-  body {
-    min-height: 100vh;
-    overflow-x: hidden; /* Evita scroll horizontal por animaciones de GSAP que se salen de pantalla */
-    margin: 0;
-  }
-  img,
-  picture,
-  svg,
-  video,
-  canvas {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
-  img,
-  video {
-    object-fit: cover;
-  }
-
-  button,
-  input,
-  select,
-  textarea {
-    font: inherit;
-    color: inherit;
-    letter-spacing: inherit;
-  }
-
-  button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: inherit;
-  }
-
-  input,
-  textarea {
-    background: none;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  ul,
-  ol {
-    list-style: none;
-  }
-
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    overflow-wrap: break-word;
-  }
-
-  #root,
-  #app {
-    isolation: isolate;
-  }
-
-  /* Selección de texto estilizada */
-  ::selection {
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
-  }
-
-  /* Reducir animaciones si el usuario lo configuró en su SO */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    ::before,
-    ::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

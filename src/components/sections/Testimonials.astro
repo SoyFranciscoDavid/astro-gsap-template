@@ -1,0 +1,57 @@
+---
+import Container from "@components/ui/Container.astro";
+import Heading from "@components/ui/Heading.astro";
+import { siteConfig } from "@data/siteConfig";
+
+const { testimonials } = siteConfig;
+---
+
+<section id="testimonials" class="py-24 sm:py-32 bg-white">
+  <Container>
+    <header class="mb-16">
+      <Heading
+        as="span"
+        size="h4"
+        class="text-[var(--color-accent)] uppercase tracking-widest text-sm font-body"
+      >
+        {testimonials.subtitle}
+      </Heading>
+      <Heading as="h2" size="h2" class="mt-2">
+        {testimonials.title}
+      </Heading>
+    </header>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        testimonials.items.map((item) => (
+          <article
+            class="bg-[var(--color-background)] border-brutal p-8 flex flex-col justify-between transition-all duration-200 hover:shadow-brutal hover:-translate-x-[3px] hover:-translate-y-[3px]"
+            style="box-shadow: var(--brutal-shadow-sm);"
+          >
+            <div>
+              <span class="block text-4xl text-[var(--color-primary)] mb-4 font-heading">
+                &ldquo;
+              </span>
+              <p class="font-body text-[var(--text-secondary)] leading-relaxed mb-8">
+                {item.quote}
+              </p>
+            </div>
+            <div class="flex items-center gap-4 border-t-brutal border-[var(--color-border)] pt-6">
+              <span class="flex-shrink-0 w-12 h-12 bg-[var(--color-primary)] text-white border-brutal border-[var(--color-foreground)] flex items-center justify-center font-heading font-bold text-sm">
+                {item.author.initials}
+              </span>
+              <div>
+                <strong class="block font-heading font-bold text-[var(--color-foreground)]">
+                  {item.author.name}
+                </strong>
+                <span class="block font-body text-sm text-[var(--text-muted)]">
+                  {item.author.role}
+                </span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</section>

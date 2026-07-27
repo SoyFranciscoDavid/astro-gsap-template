@@ -1,6 +1,4 @@
 ---
-import { cn } from "@utils/cn";
-
 interface Props extends astroHTML.JSX.ButtonHTMLAttributes {
   variant?: "primary" | "secondary" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
@@ -17,25 +15,26 @@ const {
 } = Astro.props;
 
 const baseStyles =
-  "inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] disabled:pointer-events-none disabled:opacity-50 cursor-pointer";
+  "inline-flex items-center justify-center font-body font-semibold tracking-wide transition-all duration-200 border-brutal cursor-pointer uppercase";
 
 const variants = {
-  primary: "bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90",
+  primary:
+    "bg-[var(--color-primary)] text-white border-[var(--color-foreground)] hover:shadow-brutal hover:-translate-x-[3px] hover:-translate-y-[3px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
   secondary:
-    "bg-[var(--bg-tertiary)] text-[var(--text-primary)] hover:bg-[var(--border-color)]",
+    "bg-[var(--color-accent)] text-white border-[var(--color-foreground)] hover:shadow-brutal hover:-translate-x-[3px] hover:-translate-y-[3px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
   outline:
-    "border border-[var(--border-color)] bg-transparent text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]",
+    "bg-transparent text-[var(--color-foreground)] border-[var(--color-foreground)] hover:bg-[var(--color-foreground)] hover:text-white",
   ghost:
-    "bg-transparent text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]",
+    "bg-transparent text-[var(--color-foreground)] border-transparent hover:border-[var(--color-foreground)] hover:bg-[var(--color-muted)]",
 };
 
 const sizes = {
-  sm: "h-9 px-3 text-xs rounded-md",
-  md: "h-11 px-5 text-sm rounded-lg",
-  lg: "h-14 px-8 text-base rounded-xl",
+  sm: "h-10 px-4 text-xs",
+  md: "h-12 px-6 text-sm",
+  lg: "h-14 px-8 text-base",
 };
 
-const classes = cn(baseStyles, variants[variant], sizes[size], className);
+const classes = className;
 ---
 
 {

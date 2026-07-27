@@ -1,6 +1,4 @@
 ---
-import { cn } from "@utils/cn";
-
 interface Props {
   class?: string;
   as?: keyof astroHTML.JSX.IntrinsicElements;
@@ -9,9 +7,6 @@ interface Props {
 const { class: className, as: Tag = "div", ...rest } = Astro.props;
 ---
 
-<Tag
-  class={cn("w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", className)}
-  {...rest}
->
+<Tag class=`container ${className || ""}` } {...rest}>
   <slot />
 </Tag>

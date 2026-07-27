@@ -1,0 +1,45 @@
+---
+import Container from "@components/ui/Container.astro";
+import Heading from "@components/ui/Heading.astro";
+import { siteConfig } from "@data/siteConfig";
+
+const { process } = siteConfig;
+---
+
+<section id="craft" class="py-24 sm:py-32 bg-white">
+  <Container>
+    <header class="mb-16">
+      <Heading
+        as="span"
+        size="h4"
+        class="text-[var(--color-accent)] uppercase tracking-widest text-sm font-body"
+      >
+        {process.subtitle}
+      </Heading>
+      <Heading as="h2" size="h2" class="mt-2">
+        {process.title}
+      </Heading>
+    </header>
+
+    <div class="grid gap-8 sm:grid-cols-2">
+      {
+        process.steps.map((step) => (
+          <article
+            class="border-brutal bg-[var(--color-background)] p-8 transition-all duration-200 hover:shadow-brutal hover:-translate-x-[3px] hover:-translate-y-[3px]"
+            style="box-shadow: var(--brutal-shadow-sm);"
+          >
+            <span class="block font-heading text-6xl font-bold text-[var(--color-primary)]/20 mb-4">
+              {step.number}
+            </span>
+            <h3 class="font-heading text-2xl font-bold mb-3 text-[var(--color-foreground)]">
+              {step.title}
+            </h3>
+            <p class="font-body text-[var(--text-secondary)] leading-relaxed">
+              {step.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</section>

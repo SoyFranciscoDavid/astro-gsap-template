@@ -4,19 +4,25 @@ export interface NavItem {
   href: string;
 }
 
-export interface ServiceItem {
-  id: string;
+export interface ProcessStep {
+  number: string;
   title: string;
   description: string;
-  icon: string; // Nombre del icono de Iconify (ej: "ri:code-s-slash-line")
-  tag?: string;
 }
 
-export interface WhyUsItem {
-  title: string;
+export interface ProductItem {
+  id: string;
+  name: string;
   description: string;
-  icon: string;
-  stat?: string; // Ejemplo: "+99%", "<100ms"
+  image: string;
+}
+
+export interface MetricItem {
+  icon?: string;
+  value: number;
+  label: string;
+  detail?: string;
+  large?: boolean;
 }
 
 export interface TestimonialItem {
@@ -24,9 +30,19 @@ export interface TestimonialItem {
   author: {
     name: string;
     role: string;
-    company: string;
-    avatar: string;
+    initials: string;
   };
+  featured?: boolean;
+}
+
+export interface FooterProduct {
+  label: string;
+  href: string;
+}
+
+export interface FooterInstitutional {
+  label: string;
+  href: string;
 }
 
 export interface SiteConfig {
@@ -36,7 +52,6 @@ export interface SiteConfig {
   url: string;
   ogImage: string;
   author: string;
-  twitterHandle: string;
 
   // Menús de navegación
   nav: NavItem[];
@@ -45,22 +60,28 @@ export interface SiteConfig {
   hero: {
     badge: string;
     title: string;
-    titleHighlight: string;
     description: string;
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
   };
 
-  services: {
+  process: {
     title: string;
     subtitle: string;
-    items: ServiceItem[];
+    steps: ProcessStep[];
   };
 
-  whyUs: {
+  collections: {
     title: string;
     subtitle: string;
-    items: WhyUsItem[];
+    items: ProductItem[];
+  };
+
+  identity: {
+    title: string;
+    subtitle: string;
+    description: string;
+    metrics: MetricItem[];
   };
 
   testimonials: {
@@ -75,129 +96,175 @@ export interface SiteConfig {
     email: string;
     phone: string;
     location: string;
+    hours: string;
+  };
+
+  footer: {
+    brief: string;
+    products: FooterProduct[];
+    institutional: FooterInstitutional[];
   };
 
   links: {
-    github: string;
+    instagram: string;
     linkedin: string;
-    twitter: string;
+    whatsapp: string;
+    facebook: string;
   };
 }
 
 // 2. Exportación del Objeto Global
 export const siteConfig: SiteConfig = {
-  name: "NEXUS",
-  slogan: "Diseño sólido. Código sin compromisos.",
+  name: "Matero",
+  slogan: "Sello de distinción en herencia artesanal argentina.",
   description:
-    "Estudio de desarrollo web, arquitectura de software en Astro y animación avanzada con GSAP.",
-  url: "https://midominio.com",
+    "Distribución mayorista y posicionamiento premium de mates imperiales, camioneros, termos y bombillas de alpaca para locales exclusivos.",
+  url: "https://legadocriollo.com.ar",
   ogImage: "/og-image.jpg",
-  author: "Tu Agencia / Nombre",
-  twitterHandle: "@tu_usuario",
+  author: "Legado Criollo",
 
   // Menú principal
   nav: [
-    { label: "Servicios", href: "#services" },
-    { label: "Por qué nosotros", href: "#why-us" },
-    { label: "Testimonios", href: "#testimonials" },
+    { label: "Inicio", href: "#home" },
+    { label: "Proceso", href: "#craft" },
+    { label: "Colecciones", href: "#collections" },
+    { label: "Identidad", href: "#identity" },
     { label: "Contacto", href: "#contact" },
   ],
 
   // Hero Section
   hero: {
-    badge: "Astro 4 + GSAP + Tailwind CSS",
-    title: "Construimos experiencias web de",
-    titleHighlight: "alto rendimiento",
+    badge: "Distribuidores Oficiales",
+    title: "El mate argentino",
     description:
-      "Arquitectura escalable, animaciones ultra fluidas a 60fps y estricta atención al detalle visual sin penalizar la velocidad de carga.",
-    primaryCta: { label: "Iniciar Proyecto", href: "#contact" },
-    secondaryCta: { label: "Ver Servicios", href: "#services" },
+      "Distribución mayorista y posicionamiento premium de mates imperiales, camioneros, termos y bombillas de alpaca para locales exclusivos.",
+    primaryCta: { label: "Catálogo", href: "#collections" },
+    secondaryCta: { label: "Ver Líneas", href: "#collections" },
   },
 
-  // Sección Servicios
-  services: {
-    title: "Nuestras Especialidades",
-    subtitle: "Soluciones de ingeniería y diseño pensadas para escalar.",
-    items: [
+  // Sección Proceso Artesanal
+  process: {
+    title: "El Valor de lo Hecho a Mano",
+    subtitle: "Taller y Oficio",
+    steps: [
       {
-        id: "web-dev",
-        title: "Desarrollo Web con Astro",
+        number: "01",
+        title: "Selección de Calabaza",
         description:
-          "Sitios ultrarrápidos con 0 KB de JS por defecto, arquitectura limpia e integración perfecta con CMS headless.",
-        icon: "ri:code-s-slash-line",
-        tag: "Core",
+          "Cada pieza inicia en las plantaciones del litoral, donde seleccionamos únicamente los porongos de paredes gruesas y formas simétricas que aseguran una larga vida útil y un curado perfecto.",
       },
       {
-        id: "ui-ux",
-        title: "Diseño UI/UX & Micro-interacciones",
+        number: "02",
+        title: "Costura en Cuero",
         description:
-          "Interfaces visuales impactantes, sistemas de diseño escalables y pulido obsesivo de cada componente.",
-        icon: "ri:layout-masonry-line",
-      },
-      {
-        id: "gsap-anim",
-        title: "Animaciones Avanzadas (GSAP)",
-        description:
-          "Experiencias interactivas con ScrollTrigger, timelines complejos y efectos visuales de primer nivel.",
-        icon: "ri:magic-line",
+          "El revestimiento se realiza con cuero vacuno legítimo de exportación. Nuestros artesanos realizan costuras cruzadas a mano utilizando tientos seleccionados, logrando una tensión milimétrica estructural.",
       },
     ],
   },
 
-  // Sección Por Qué Elegirnos (Why Us / Features)
-  whyUs: {
-    title: "Por qué trabajar con nosotros",
-    subtitle:
-      "Eliminamos la grasa del desarrollo tradicional para ofrecer la máxima calidad.",
+  // Sección Colecciones
+  collections: {
+    title: "Líneas de Distribución",
+    subtitle: "Catálogo de Selección",
     items: [
       {
-        title: "Rendimiento Obsesivo",
+        id: "camionero",
+        name: "Línea Camionero",
         description:
-          "Optimizamos cada asset y bundle de código para alcanzar métricas de 100/100 en Google Lighthouse.",
-        icon: "ri:speed-up-line",
-        stat: "100/100",
+          "Diseño sobrio de boca ancha para un cebado consistente. Comodidad absoluta para el uso diario.",
+        image: "assets/img4.png",
       },
       {
-        title: "Código Estructurado",
+        id: "imperial",
+        name: "Línea Imperial",
         description:
-          "Arquitectura limpia orientada a componentes, tipado estricto con TypeScript y fácil mantenimiento.",
-        icon: "ri:cpu-line",
-        stat: "TS",
+          "Calabazas seleccionadas de grueso grosor, forradas en cuero vacuno virolas trabajadas en alpaca pura.",
+        image: "assets/img1.png",
       },
       {
-        title: "Entrega Sin Sorpresas",
+        id: "termos",
+        name: "Termos de Gala",
         description:
-          "Metodología clara, entregables sólidos y soporte técnico directo sin intermediarios.",
-        icon: "ri:shield-check-line",
-        stat: "100%",
+          "Cuerpo de acero inoxidable de grado alimenticio con tecnología de vacío intermedio con retención térmica.",
+        image: "assets/img2.png",
+      },
+    ],
+  },
+
+  // Sección Identidad & Métricas
+  identity: {
+    title: "Más que un Producto, una Institución",
+    subtitle: "Cultura Federal",
+    description:
+      "El mate une distancias, sella acuerdos corporativos y define la identidad de nuestra tierra. Llevamos este ritual al segmento corporativo y de alta gama con el respeto que la tradición exige.",
+    metrics: [
+      {
+        icon: "🏆",
+        value: 23,
+        label: "Provincias Abastecidas",
+        detail: "Presencia en todo el territorio nacional",
+        large: true,
+      },
+      {
+        icon: "🌱",
+        value: 100,
+        label: "Materia Prima Local",
+        detail: "Origen 100% argentino garantizado",
+        large: true,
+      },
+      {
+        icon: "⚒️",
+        value: 15,
+        label: "Talleres Asociados",
+        detail: "Artesanos certificados en red",
+        large: true,
+      },
+      {
+        value: 5000,
+        label: "Envíos Mensuales",
+      },
+      {
+        value: 12,
+        label: "Años de Trayectoria",
+      },
+      {
+        value: 98,
+        label: "% Satisfacción B2B",
       },
     ],
   },
 
   // Sección Testimonios
   testimonials: {
-    title: "Lo que dicen de nosotros",
-    subtitle:
-      "Clientes y colaboradores que respaldan la calidad de nuestro código.",
+    title: "Voces del Sector",
+    subtitle: "Lo que dicen nuestros aliados",
     items: [
       {
         quote:
-          "La velocidad del sitio y la fluidez de las animaciones superaron por completo lo que teníamos planeado. Impecable trabajo de arquitectura.",
+          "Los mates imperiales transformaron la experiencia de nuestros clientes corporativos. La calidad artesanal se nota en cada detalle. Definitivamente el socio ideal para nuestra línea premium.",
         author: {
-          name: "Carlos Mendoza",
-          role: "CTO",
-          company: "TechFlow",
-          avatar: "https://i.pravatar.cc/150?u=carlos",
+          name: "Martín Cárdenas",
+          role: "Director Comercial, Café del Sur",
+          initials: "MC",
         },
       },
       {
         quote:
-          "Entienden la estética y el rendimiento como una sola cosa. No es solo que se ve bien, es que vuela.",
+          "Trabajamos con Legado Criollo hace más de 5 años. Su compromiso con la calidad y los tiempos de entrega los convierte en el distribuidor más confiable del mercado. Los termos de gala vuelven locos a nuestros compradores.",
         author: {
-          name: "Elena Rostova",
-          role: "Head of Product",
-          company: "Lumina Studio",
-          avatar: "https://i.pravatar.cc/150?u=elena",
+          name: "Laura Rodríguez",
+          role: "Gerente de Compras, Almacén Criollo",
+          initials: "LR",
+        },
+        featured: true,
+      },
+      {
+        quote:
+          "Como importador, la consistencia en el producto es clave. Legado Criollo mantiene estándares impecables en cada lote. La línea camionero es un éxito rotundo en nuestro catálogo internacional.",
+        author: {
+          name: "Diego Pereyra",
+          role: "CEO, MateAr Export",
+          initials: "DP",
         },
       },
     ],
@@ -205,18 +272,39 @@ export const siteConfig: SiteConfig = {
 
   // Sección Contacto
   contact: {
-    title: "Hablemos de tu próximo proyecto",
-    subtitle:
-      "¿Tenés una idea en mente? Nos encantaría evaluar cómo llevarla al siguiente nivel.",
-    email: "contacto@agencia.com",
-    phone: "+54 9 11 0000-0000",
+    title: "Contacto",
+    subtitle: "Hablemos de tu negocio",
+    email: "b2b@matefederal.com.ar",
+    phone: "+54 11 1234-5678",
     location: "Buenos Aires, Argentina",
+    hours: "Lun - Vie: 9:00 - 18:00 hs",
   },
 
-  // Redes Sociales
+  // Footer
+  footer: {
+    brief:
+      "Sello de distinción en herencia artesanal argentina. Despachos consolidados a todo el territorio nacional.",
+    products: [
+      { label: "Línea Camionero", href: "#collections" },
+      { label: "Línea Imperial", href: "#collections" },
+      { label: "Termos de Gala", href: "#collections" },
+      { label: "Bombillas Alpaca", href: "#collections" },
+      { label: "Accesorios", href: "#collections" },
+    ],
+    institutional: [
+      { label: "Nuestro Proceso", href: "#craft" },
+      { label: "Cultura Federal", href: "#identity" },
+      { label: "Testimonios", href: "#testimonials" },
+      { label: "Términos Comerciales", href: "#" },
+      { label: "Políticas de Calidad", href: "#" },
+    ],
+  },
+
+  // Redes sociales
   links: {
-    github: "https://github.com/tuusuario",
-    linkedin: "https://linkedin.com/in/tuusuario",
-    twitter: "https://x.com/tuusuario",
+    instagram: "https://instagram.com/legadocriollo",
+    linkedin: "https://linkedin.com/company/legadocriollo",
+    whatsapp: "https://wa.me/541112345678",
+    facebook: "https://facebook.com/legadocriollo",
   },
 };

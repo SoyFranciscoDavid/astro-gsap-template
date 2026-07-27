@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,13 +7,9 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    icon(),
-  ],
+  integrations: [icon()],
   vite: {
+    plugins: [tailwindcss()],
     resolve: {
       alias: {
         "@components": path.resolve(__dirname, "./src/components"),

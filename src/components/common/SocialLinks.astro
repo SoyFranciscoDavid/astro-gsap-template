@@ -1,7 +1,6 @@
 ---
 import Icon from "@components/ui/Icon.astro";
 import { siteConfig } from "@data/siteConfig";
-import { cn } from "@utils/cn";
 
 interface Props {
   class?: string;
@@ -11,12 +10,12 @@ interface Props {
 
 const { class: className, variant = "default", size = "md" } = Astro.props;
 
-// Mapeo de redes sociales a íconos de Remix Icon / FontAwesome
+// Mapeo de redes sociales a íconos de Remix Icon
 const socialItems = [
   {
-    name: "GitHub",
-    url: siteConfig.links.github,
-    icon: "ri:github-fill",
+    name: "Instagram",
+    url: siteConfig.links.instagram,
+    icon: "ri:instagram-fill",
   },
   {
     name: "LinkedIn",
@@ -24,13 +23,16 @@ const socialItems = [
     icon: "ri:linkedin-fill",
   },
   {
-    name: "X (Twitter)",
-    url: siteConfig.links.twitter
-      ? `https://x.com/${siteConfig.twitterHandle}`
-      : undefined,
-    icon: "ri:twitter-x-fill",
+    name: "WhatsApp",
+    url: siteConfig.links.whatsapp,
+    icon: "ri:whatsapp-fill",
   },
-].filter((item) => item.url); // Filtrar solo las redes que estén definidas en siteConfig
+  {
+    name: "Facebook",
+    url: siteConfig.links.facebook,
+    icon: "ri:facebook-fill",
+  },
+].filter((item) => item.url);
 
 const sizes = {
   sm: "h-8 w-8 text-xs",
@@ -57,7 +59,7 @@ const variants = {
 };
 ---
 
-<div class={cn("flex items-center gap-2", className)}>
+<div class={className}>
   {
     socialItems.map((item) => (
       <a
@@ -65,7 +67,7 @@ const variants = {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Perfil de ${item.name}`}
-        class={cn(baseStyles, variants[variant], sizes[size])}
+        class=""
       >
         <Icon name={item.icon} class={iconSizes[size]} />
       </a>

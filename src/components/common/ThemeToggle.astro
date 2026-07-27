@@ -1,6 +1,5 @@
 ---
 import Icon from "@components/ui/Icon.astro";
-import { cn } from "@utils/cn";
 
 interface Props {
   class?: string;
@@ -13,10 +12,7 @@ const { class: className } = Astro.props;
   type="button"
   data-theme-toggle
   aria-label="Cambiar tema"
-  class={cn(
-    "relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/50 text-[var(--text-secondary)] transition-colors hover:border-[var(--border-focus)] hover:text-[var(--text-primary)] focus:outline-none",
-    className,
-  )}
+  class="className"
 >
   <!-- Ícono Sol (Visible en Modo Oscuro) -->
   <span class="theme-icon-dark">

@@ -1,26 +1,76 @@
-@layer utilities {
-  /* Regla de oro para animaciones GSAP: Oculta el elemento antes de que GSAP tome el control */
-  .gsap-hide {
-    visibility: hidden;
-    opacity: 0;
-  }
+.container {
+  width: 100%;
+  max-width: var(--container-lg);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
 
-  /* Gradiente de texto elegante */
-  .text-gradient {
-    background: linear-gradient(
-      180deg,
-      var(--text-primary) 0%,
-      var(--text-muted) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.container--wide {
+  max-width: var(--container-xl);
+}
 
-  /* Efecto Glassmorphism */
-  .glass {
-    background-color: var(--bg-secondary);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border-color);
+.container--narrow {
+  max-width: var(--container-md);
+}
+.section {
+  padding-block: var(--section-padding);
+}
+.section--tight {
+  padding-block: calc(var(--section-padding) * 0.6);
+}
+/* ==== RESPONSIVE ==== */
+
+/* Pantallas muy pequeñas: reducir el padding lateral del contenedor */
+@media (max-width: 360px) {
+  .container {
+    padding-inline: var(--space-4);
   }
+}
+
+/* Pantallas grandes: limitar el ancho de línea del texto editorial */
+@media (min-width: 1600px) {
+  .container--narrow {
+    max-width: 920px;
+  }
+}
+
+/* Impresión: simplificar el diseño */
+@media print {
+  .header,
+  .footer,
+  .hero__scroll-indicator,
+  .cta {
+    display: none;
+  }
+}
+/* ---------- Grid utilitario reusado por varias secciones ---------- */
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--space-6);
+}
+
+/* ---------- Imágenes responsivas con proporción controlada ---------- */
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-tertiary);
+}
+
+/* ---------- Skip link para accesibilidad de teclado ---------- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: var(--z-tooltip);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--text-primary);
+  color: var(--white);
+  border-radius: var(--radius-sm);
+  transition: top var(--transition-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
 }

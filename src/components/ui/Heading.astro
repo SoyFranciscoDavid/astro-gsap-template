@@ -1,6 +1,4 @@
 ---
-import { cn } from "@utils/cn";
-
 interface Props {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   size?: "h1" | "h2" | "h3" | "h4";
@@ -17,6 +15,6 @@ const sizes = {
 };
 ---
 
-<Tag class={cn(sizes[size], "text-[var(--text-primary)]", className)}>
+<Tag class={className}>
   <slot />
 </Tag>

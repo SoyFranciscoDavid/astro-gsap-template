@@ -7,27 +7,142 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer
-  class="border-t border-[var(--border-color)] bg-[var(--bg-primary)] py-12 text-[var(--text-secondary)]"
+  class="bg-[var(--color-foreground)] text-white border-t-brutal border-white"
 >
-  <Container
-    class="flex flex-col md:flex-row items-center justify-between gap-6"
-  >
-    <!-- Brand Info -->
-    <div>
-      <span
-        class="text-lg font-bold tracking-tighter text-[var(--text-primary)]"
-        >{siteConfig.name}.</span
-      >
-      <p class="text-xs text-[var(--text-muted)] mt-1">{siteConfig.slogan}</p>
+  <Container>
+    <div class="py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Brand + Newsletter -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <span class="block font-heading font-bold text-xl mb-4"
+          >{siteConfig.name}</span
+        >
+        <p class="font-body text-sm text-white/60 mb-6 leading-relaxed">
+          {siteConfig.footer.brief}
+        </p>
+
+        <div class="mb-6">
+          <h4
+            class="font-heading font-bold text-sm uppercase tracking-wider mb-3"
+          >
+            Suscribite a nuestro catálogo
+          </h4>
+          <form onsubmit="event.preventDefault()" class="flex">
+            <input
+              type="email"
+              placeholder="Tu email corporativo"
+              aria-label="Email para suscripción"
+              class="flex-1 h-10 px-4 bg-white/10 border-brutal border-white/30 text-white text-sm font-body placeholder:text-white/40 focus:outline-none focus:border-white"
+            />
+            <button
+              type="submit"
+              class="h-10 px-4 bg-[var(--color-accent)] border-brutal border-white text-white font-bold hover:bg-[var(--color-accent)]/80 transition-colors"
+            >
+              →
+            </button>
+          </form>
+        </div>
+
+        <SocialLinks size="sm" />
+      </div>
+
+      <!-- Productos -->
+      <div>
+        <h4
+          class="font-heading font-bold text-sm uppercase tracking-wider mb-4"
+        >
+          Productos
+        </h4>
+        <ul class="space-y-2">
+          {
+            siteConfig.footer.products.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="font-body text-sm text-white/60 hover:text-white transition-colors"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Institucional -->
+      <div>
+        <h4
+          class="font-heading font-bold text-sm uppercase tracking-wider mb-4"
+        >
+          Institucional
+        </h4>
+        <ul class="space-y-2">
+          {
+            siteConfig.footer.institutional.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="font-body text-sm text-white/60 hover:text-white transition-colors"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div>
+        <h4
+          class="font-heading font-bold text-sm uppercase tracking-wider mb-4"
+        >
+          Contacto
+        </h4>
+        <ul class="space-y-2 font-body text-sm text-white/60">
+          <li>{siteConfig.contact.location}</li>
+          <li>
+            <a
+              href={`mailto:${siteConfig.contact.email}`}
+              class="hover:text-white transition-colors"
+            >
+              {siteConfig.contact.email}
+            </a>
+          </li>
+          <li>
+            <a
+              href={`tel:${siteConfig.contact.phone}`}
+              class="hover:text-white transition-colors"
+            >
+              {siteConfig.contact.phone}
+            </a>
+          </li>
+          <li>{siteConfig.contact.hours}</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Social Links -->
-    <SocialLinks size="sm" />
-
-    <!-- Copyright -->
-    <div class="text-xs text-[var(--text-muted)]">
-      &copy; {currentYear}
-      {siteConfig.name}. Todos los derechos reservados.
+    <!-- Bottom -->
+    <div
+      class="border-t-brutal border-white/20 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+    >
+      <p class="font-body text-sm text-white/50">
+        &copy; {currentYear}
+        <strong class="text-white">{siteConfig.name}</strong>. Todos los
+        derechos reservados.
+      </p>
+      <div class="flex items-center gap-3 font-body text-xs text-white/40">
+        <a href="#" class="hover:text-white transition-colors"
+          >Política de Privacidad</a
+        >
+        <span>·</span>
+        <a href="#" class="hover:text-white transition-colors"
+          >Términos y Condiciones</a
+        >
+        <span>·</span>
+        <a href="#" class="hover:text-white transition-colors"
+          >Defensa del Consumidor</a
+        >
+      </div>
     </div>
   </Container>
 </footer>
