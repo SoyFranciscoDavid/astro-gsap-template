@@ -7,7 +7,7 @@ Plantilla base orientada a performance, arquitectura modular y animaciones de al
 - **Módulos de Animación:** Definir en `src/scripts/animations/*.ts` e importar dentro del bloque `<script>` de los componentes.
 - **GSAP Instance:** Importar siempre desde `@scripts/gsap` para asegurar el registro de plugins.
 - **Alias de Importación:** Utilizar `@components`, `@layouts`, `@styles`, `@scripts`, `@utils`, `@assets`.
-- **Fuentes:** Ubicar fuentes `.woff2` en `src/assets/fonts/` y registrarlas en `src/styles/base.css`.
+- **Fuentes:** Ubicar fuentes `.woff2` en `src/assets/fonts/` y registrarlas en `src/styles/global.css`.
 
 ## 🚀 Comandos
 

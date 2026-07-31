@@ -7,34 +7,30 @@ import { siteConfig } from "@data/siteConfig";
 const { contact } = siteConfig;
 ---
 
-<section id="contact" class="py-24 sm:py-32 bg-[var(--color-muted)]">
+<section id="contact" class="py-24 sm:py-32 bg-[var(--bg-primary)]">
   <Container>
     <div class="grid gap-12 lg:grid-cols-2">
       <!-- Left: Info -->
-      <div>
+      <div data-reveal>
         <Heading as="h2" size="h2" class="mb-4">
           {contact.title}
         </Heading>
-        <Heading
-          as="p"
-          size="h4"
-          class="text-[var(--text-secondary)] font-body mb-10"
-        >
+        <Heading as="span" size="h4" class="label">
           {contact.subtitle}
         </Heading>
 
         <div class="space-y-6">
           <div class="flex items-start gap-4">
             <span
-              class="flex-shrink-0 w-10 h-10 bg-[var(--color-primary)] text-white border-brutal border-[var(--color-foreground)] flex items-center justify-center text-sm"
+              class="flex-shrink-0 w-10 h-10 rounded-[var(--radius-md)] bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 flex items-center justify-center text-sm"
               >📍</span
             >
             <div>
               <span
-                class="block font-heading font-bold text-[var(--color-foreground)]"
+                class="block font-heading font-semibold text-sm text-[var(--text-primary)]"
                 >Ubicación</span
               >
-              <span class="block font-body text-[var(--text-secondary)]"
+              <span class="block font-body text-sm text-[var(--text-secondary)]"
                 >{contact.location}</span
               >
             </div>
@@ -42,17 +38,17 @@ const { contact } = siteConfig;
 
           <div class="flex items-start gap-4">
             <span
-              class="flex-shrink-0 w-10 h-10 bg-[var(--color-primary)] text-white border-brutal border-[var(--color-foreground)] flex items-center justify-center text-sm"
+              class="flex-shrink-0 w-10 h-10 rounded-[var(--radius-md)] bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 flex items-center justify-center text-sm"
               >✉</span
             >
             <div>
               <span
-                class="block font-heading font-bold text-[var(--color-foreground)]"
+                class="block font-heading font-semibold text-sm text-[var(--text-primary)]"
                 >Email</span
               >
               <a
                 href={`mailto:${contact.email}`}
-                class="block font-body text-[var(--color-secondary)] hover:underline"
+                class="block font-body text-sm text-[var(--color-primary)] hover:underline font-medium"
                 >{contact.email}</a
               >
             </div>
@@ -60,17 +56,17 @@ const { contact } = siteConfig;
 
           <div class="flex items-start gap-4">
             <span
-              class="flex-shrink-0 w-10 h-10 bg-[var(--color-primary)] text-white border-brutal border-[var(--color-foreground)] flex items-center justify-center text-sm"
+              class="flex-shrink-0 w-10 h-10 rounded-[var(--radius-md)] bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 flex items-center justify-center text-sm"
               >☎</span
             >
             <div>
               <span
-                class="block font-heading font-bold text-[var(--color-foreground)]"
+                class="block font-heading font-semibold text-sm text-[var(--text-primary)]"
                 >Teléfono</span
               >
               <a
                 href={`tel:${contact.phone}`}
-                class="block font-body text-[var(--color-secondary)] hover:underline"
+                class="block font-body text-sm text-[var(--color-primary)] hover:underline font-medium"
                 >{contact.phone}</a
               >
             </div>
@@ -78,15 +74,15 @@ const { contact } = siteConfig;
 
           <div class="flex items-start gap-4">
             <span
-              class="flex-shrink-0 w-10 h-10 bg-[var(--color-primary)] text-white border-brutal border-[var(--color-foreground)] flex items-center justify-center text-sm"
+              class="flex-shrink-0 w-10 h-10 rounded-[var(--radius-md)] bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 flex items-center justify-center text-sm"
               >🕐</span
             >
             <div>
               <span
-                class="block font-heading font-bold text-[var(--color-foreground)]"
+                class="block font-heading font-semibold text-sm text-[var(--text-primary)]"
                 >Horarios</span
               >
-              <span class="block font-body text-[var(--text-secondary)]"
+              <span class="block font-body text-sm text-[var(--text-secondary)]"
                 >{contact.hours}</span
               >
             </div>
@@ -96,16 +92,16 @@ const { contact } = siteConfig;
 
       <!-- Right: CTA Card -->
       <div
-        class="bg-white border-brutal p-10 flex flex-col justify-center items-center text-center"
-        style="box-shadow: var(--brutal-shadow);"
+        data-reveal="self"
+        class="bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-xl)] p-10 flex flex-col justify-center items-center text-center shadow-[var(--shadow-md)]"
       >
-        <span class="block font-heading text-5xl mb-4">🤝</span>
+        <span class="block text-4xl mb-4">🤝</span>
         <h3
-          class="font-heading text-2xl font-bold mb-4 text-[var(--color-foreground)]"
+          class="font-heading text-2xl font-bold mb-4 text-[var(--text-primary)]"
         >
           ¿Listo para trabajar juntos?
         </h3>
-        <p class="font-body text-[var(--text-secondary)] mb-8 max-w-sm">
+        <p class="font-body text-sm text-[var(--text-secondary)] mb-8 max-w-sm">
           Contactanos para conocer nuestro catálogo completo y condiciones de
           distribución mayorista.
         </p>

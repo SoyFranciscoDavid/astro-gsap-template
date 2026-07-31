@@ -1,59 +1,94 @@
 ---
 import Container from "@components/ui/Container.astro";
 import Button from "@components/ui/Button.astro";
+import Image from "@components/ui/Image.astro";
 import { siteConfig } from "@data/siteConfig";
+import { heroImage } from "@data/images";
 
 const { hero } = siteConfig;
 ---
 
 <section
   id="home"
-  class="relative bg-[var(--color-primary)] text-white min-h-[90vh] flex items-center overflow-hidden"
+  class="relative bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-[90vh] flex items-center overflow-hidden border-b border-[var(--border-light)]"
 >
-  <!-- Decorative brutal elements -->
+  <!-- Subtle gradient overlay -->
   <div
-    class="absolute top-8 right-8 w-24 h-24 bg-[var(--color-accent)] border-brutal border-white hidden lg:block"
-    style="transform: rotate(6deg);"
-  >
-  </div>
-  <div
-    class="absolute bottom-12 left-12 w-16 h-16 bg-white border-brutal border-[var(--color-foreground)] hidden lg:block"
-    style="transform: rotate(-3deg);"
+    class="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/5 to-transparent pointer-events-none"
   >
   </div>
 
   <Container>
-    <div class="max-w-3xl">
-      <!-- Badge -->
-      <span
-        class="inline-block bg-[var(--color-accent)] text-white border-brutal border-white px-5 py-2 text-sm font-body font-semibold uppercase tracking-widest mb-8"
-        style="box-shadow: 4px 4px 0 rgba(255,255,255,0.3);"
-      >
-        {hero.badge}
-      </span>
+    <div class="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <!-- Left: Content -->
+      <div class="max-w-xl">
+        <!-- Badge -->
 
-      <!-- Title -->
-      <h1
-        class="font-heading text-5xl sm:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-6"
-      >
-        {hero.title}
-      </h1>
+        <div class="overflow-hidden py-1.5 mb-8">
+          <span
+            data-hero="text"
+            class="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 px-5 text-xs font-semibold uppercase tracking-[0.15em] rounded-full"
+          >
+            {hero.badge}
+          </span>
+        </div>
 
-      <!-- Description -->
-      <p
-        class="font-body text-lg sm:text-xl text-white/80 max-w-xl mb-10 leading-relaxed"
-      >
-        {hero.description}
-      </p>
+        <!-- Title -->
+        <h1
+          class="font-heading font-black leading-[0.95] tracking-[-0.02em] mb-6"
+          data-title
+        >
+          {hero.title}
+        </h1>
 
-      <!-- CTAs -->
-      <div class="flex flex-wrap gap-4">
-        <Button variant="secondary" size="lg" href={hero.primaryCta.href}>
-          {hero.primaryCta.label}
-        </Button>
-        <Button variant="outline" size="lg" href={hero.secondaryCta.href}>
-          {hero.secondaryCta.label}
-        </Button>
+        <!-- Description -->
+        <div class="overflow-hidden mb-10">
+          <p
+            data-hero="text"
+            class="font-body text-lg text-[var(--text-secondary)] max-w-xl leading-relaxed"
+          >
+            {hero.description}
+          </p>
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <div class="overflow-hidden">
+            <div data-hero="text">
+              <Button variant="primary" size="lg" href={hero.primaryCta.href}>
+                {hero.primaryCta.label}
+              </Button>
+            </div>
+          </div>
+          <div class="overflow-hidden">
+            <div data-hero="text">
+              <Button variant="outline" size="lg" href={hero.secondaryCta.href}>
+                {hero.secondaryCta.label}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Hero Image -->
+      <div class="justify-center items-center">
+        <div class="relative">
+          <div
+            class="absolute -inset-4 bg-[var(--color-primary)]/10 rounded-[var(--radius-xl)] -rotate-3"
+          >
+          </div>
+          <div
+            data-mate
+            class="relative rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lg)] lg:invisible"
+          >
+            <Image
+              src={heroImage}
+              alt="Mate argentino"
+              class="w-70 mx-auto h-auto max-w-md object-cover md:w-full"
+              loading="eager"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </Container>

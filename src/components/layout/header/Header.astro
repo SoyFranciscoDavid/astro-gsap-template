@@ -1,7 +1,7 @@
 ---
 import Container from "@components/ui/Container.astro";
 import Button from "@components/ui/Button.astro";
-import ThemeToggle from "@components/common/ThemeToggle.astro";
+import Logo from "@components/common/Logo.astro";
 import { siteConfig } from "@data/siteConfig";
 
 const navItems = siteConfig.nav;
@@ -9,25 +9,23 @@ const navItems = siteConfig.nav;
 
 <header
   data-header
-  class="fixed top-0 left-0 right-0 z-[var(--z-header)] bg-white backdrop-blur-lg"
+  class="fixed top-0 left-0 right-0 z-[var(--z-header)] bg-[var(--bg-secondary)]/90 backdrop-blur-sm border-b border-[var(--border-light)]"
 >
   <Container>
-    <div class="flex items-center justify-between py-[var(--spacing-3)]">
+    <div class="flex items-center justify-between py-3">
       <!-- Logo -->
-      <a
-        href="/"
-        class="font-heading font-bold text-xl text-[var(--color-primary)] tracking-tight"
-      >
-        {siteConfig.name}
-      </a>
+      <div data-nav="item">
+        <Logo />
+      </div>
 
       <!-- Nav Desktop -->
-      <nav class="hidden md:flex items-center gap-8">
+      <nav class="hidden md:flex items-center gap-10">
         {
           navItems.map((item) => (
             <a
+              data-nav="item"
               href={item.href}
-              class="font-body text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--color-primary)] transition-colors uppercase tracking-wide"
+              class="font-body text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--color-primary)] transition-colors tracking-normal"
             >
               {item.label}
             </a>
@@ -35,9 +33,9 @@ const navItems = siteConfig.nav;
         }
       </nav>
 
-      <!-- CTA + Theme Toggle Desktop -->
-      <div class="hidden md:flex items-center gap-4">
-        <ThemeToggle />
+      <!-- CTA Desktop -->
+
+      <div class="hidden md:flex items-center gap-4" data-nav="item">
         <Button
           variant="primary"
           size="sm"
@@ -49,12 +47,11 @@ const navItems = siteConfig.nav;
 
       <!-- Mobile Menu Button -->
       <div class="flex md:hidden items-center gap-3">
-        <ThemeToggle />
         <button
           type="button"
           data-menu-toggle
           aria-label="Abrir menú"
-          class="w-10 h-10 border-brutal border-[var(--color-foreground)] flex items-center justify-center text-lg hover:bg-[var(--color-muted)] transition-colors"
+          class="w-10 h-10 border border-[var(--border)] rounded-[var(--radius-sm)] flex items-center justify-center text-lg hover:bg-[var(--bg-tertiary)] transition-colors text-[var(--text-primary)]"
         >
           ☰
         </button>
@@ -65,38 +62,154 @@ const navItems = siteConfig.nav;
   <!-- Mobile Drawer -->
   <div
     data-mobile-menu
-    class="hidden bg-white border-b-brutal border-[var(--color-foreground)]"
+    class="hidden bg-[var(--bg-secondary)] border-t border-[var(--border-light)] overflow-hidden"
+    style="clip-path: circle(0% at calc(100% - 2.5rem) 2.5rem);"
   >
     <Container>
-      <nav class="flex flex-col gap-4 py-6">
+      <nav class="flex flex-col gap-5 py-8">
         {
           navItems.map((item) => (
-            <a
-              href={item.href}
-              class="font-body text-base font-medium text-[var(--text-secondary)] hover:text-[var(--color-primary)] transition-colors uppercase tracking-wide"
-            >
-              {item.label}
-            </a>
+            <div data-menu-item class="will-change-transform">
+              <a
+                href={item.href}
+                class="font-body text-base font-medium text-[var(--text-secondary)] hover:text-[var(--color-primary)] transition-colors block py-1"
+              >
+                {item.label}
+              </a>
+            </div>
           ))
         }
-        <Button
-          variant="primary"
-          size="md"
-          href={siteConfig.contact ? "mailto:" + siteConfig.contact.email : "#"}
-          class="mt-2"
-        >
-          Contacto
-        </Button>
+        <div data-menu-item class="will-change-transform pt-2">
+          <Button
+            variant="primary"
+            size="md"
+            href={siteConfig.contact
+              ? "mailto:" + siteConfig.contact.email
+              : "#"}
+            class="w-full text-center"
+          >
+            Contacto
+          </Button>
+        </div>
       </nav>
     </Container>
   </div>
 </header>
 
 <script>
-  const toggleBtn = document.querySelector("[data-menu-toggle]");
-  const mobileMenu = document.querySelector("[data-mobile-menu]");
+  import gsap from "gsap";
 
-  toggleBtn?.addEventListener("click", () => {
-    mobileMenu?.classList.toggle("hidden");
+  const toggleBtn = document.querySelector("[data-menu-toggle]");
+  const mobileMenu = document.querySelector(
+    "[data-mobile-menu]",
+  ) as HTMLElement | null;
+  const menuItems = document.querySelectorAll("[data-menu-item]");
+
+  let isOpen = false;
+  let timeline: gsap.core.Timeline | null = null;
+
+  function initMenuTimeline() {
+    if (!mobileMenu) return;
+
+    timeline = gsap.timeline({
+      paused: true,
+      onStart: () => {
+        if (mobileMenu) {
+          mobileMenu.classList.remove("hidden");
+        }
+      },
+      onReverseComplete: () => {
+        if (mobileMenu) {
+          mobileMenu.classList.add("hidden");
+        }
+      },
+    });
+
+    timeline
+      .fromTo(
+        mobileMenu,
+        {
+          clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)",
+        },
+        {
+          clipPath: "circle(150% at calc(100% - 2.5rem) 2.5rem)",
+          duration: 0.55,
+          ease: "power3.inOut",
+        },
+      )
+      .fromTo(
+        menuItems,
+        {
+          y: 35,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.07,
+          ease: "power2.out",
+        },
+        "-=0.3",
+      );
+  }
+
+  function toggleMenu() {
+    if (!timeline) {
+      initMenuTimeline();
+    }
+    if (!timeline) return;
+
+    isOpen = !isOpen;
+
+    if (toggleBtn) {
+      toggleBtn.setAttribute("aria-expanded", isOpen.toString());
+      toggleBtn.setAttribute(
+        "aria-label",
+        isOpen ? "Cerrar menú" : "Abrir menú",
+      );
+    }
+
+    if (isOpen) {
+      timeline.play();
+    } else {
+      timeline.reverse();
+    }
+  }
+
+  toggleBtn?.addEventListener("click", toggleMenu);
+
+  // Close menu when clicking a link
+  menuItems.forEach((item) => {
+    const link = item.querySelector("a");
+    link?.addEventListener("click", () => {
+      if (isOpen) {
+        toggleMenu();
+      }
+    });
+  });
+
+  // Close menu on Escape key
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen) {
+      toggleMenu();
+    }
+  });
+
+  // Handle window resize (close menu on desktop breakpoint)
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768 && isOpen) {
+      isOpen = false;
+      if (toggleBtn) {
+        toggleBtn.setAttribute("aria-expanded", "false");
+        toggleBtn.setAttribute("aria-label", "Abrir menú");
+      }
+      if (timeline) {
+        timeline.pause(0);
+      }
+      if (mobileMenu) {
+        mobileMenu.classList.add("hidden");
+      }
+    }
   });
 </script>

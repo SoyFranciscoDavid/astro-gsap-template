@@ -1,0 +1,103 @@
+/* ============================================
+   Global Styles — Tailwind v4 + Base
+   ============================================ */
+
+@import "tailwindcss";
+@import "./variables.css";
+@import "./utilities.css";
+
+/* ---------- Base ---------- */
+body {
+  background: var(--bg-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  color: var(--text-primary);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+section {
+  position: relative;
+}
+
+/* ---------- Headings ---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}
+
+h1 {
+  font-size: var(--fs-4xl);
+  font-weight: var(--fw-black);
+}
+h2 {
+  font-size: var(--fs-3xl);
+}
+h3 {
+  font-size: var(--fs-2xl);
+}
+h4 {
+  font-size: var(--fs-xl);
+}
+h5 {
+  font-size: var(--fs-lg);
+}
+h6 {
+  font-size: var(--fs-md);
+}
+
+/* ---------- Text ---------- */
+p {
+  line-height: var(--lh-relaxed);
+}
+
+strong,
+b {
+  font-weight: var(--fw-semibold);
+}
+
+/* ---------- Skip link (accessibility) ---------- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 500;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--text-primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  transition: top 150ms var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- Print ---------- */
+@media print {
+  header,
+  footer,
+  .hero__scroll-indicator,
+  .cta {
+    display: none;
+  }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  header,
+  footer,
+  .hero__scroll-indicator,
+  .cta {
+    display: none;
+  }
+}

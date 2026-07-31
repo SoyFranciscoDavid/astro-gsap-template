@@ -1,42 +1,58 @@
 ---
 import Container from "@components/ui/Container.astro";
 import Heading from "@components/ui/Heading.astro";
+import Image from "@components/ui/Image.astro";
 import { siteConfig } from "@data/siteConfig";
+import { collectionImages } from "@data/images";
 
 const { collections } = siteConfig;
 ---
 
-<section id="collections" class="py-24 sm:py-32 bg-[var(--color-muted)]">
+<section id="collections" class="py-24 sm:py-32 bg-[var(--bg-secondary)]">
   <Container>
-    <header class="mb-16">
-      <Heading
-        as="span"
-        size="h4"
-        class="text-[var(--color-accent)] uppercase tracking-widest text-sm font-body"
-      >
+    <header class="mb-16 text-center" data-reveal>
+      <Heading as="span" size="h4" class="label">
         {collections.subtitle}
       </Heading>
-      <Heading as="h2" size="h2" class="mt-2">
+      <Heading as="h2" size="h2" class="mt-3">
         {collections.title}
       </Heading>
     </header>
 
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
       {
-        collections.items.map((item) => (
+        collections.items.map((item, idx) => (
+          // La card 3 (slot del mate) se anima SOLO con opacidad: si se
+          // moviera en Y, el viaje del mate mediría su posición mal.
           <article
-            class="bg-white border-brutal overflow-hidden transition-all duration-200 hover:shadow-brutal hover:-translate-x-[3px] hover:-translate-y-[3px] cursor-pointer group"
-            style="box-shadow: var(--brutal-shadow-sm);"
+            class="group bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-hover)] hover:-translate-y-1"
+            {...(idx === 2 ? { "data-reveal-static": "" } : {})}
           >
-            <div class="overflow-hidden border-b-brutal border-[var(--color-foreground)]">
-              <img
-                src={item.image}
+            <div
+              class="relative overflow-hidden aspect-[4/3] bg-[var(--bg-tertiary)] md:aspect-square"
+              data-collection-slot={idx === 2 ? "" : undefined}
+            >
+              <Image
+                src={collectionImages[idx]}
                 alt={item.name}
-                class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
+                class={
+                  "w-80 h-80 object-cover mx-auto" +
+                  (idx === 2 ? " lg:hidden" : "")
+                }
               />
+              {idx === 2 && (
+                <div
+                  data-collection-ghost
+                  class="hidden lg:flex absolute inset-0 items-center justify-center border-2 border-dashed border-[var(--border)] rounded-none bg-[var(--bg-tertiary)]"
+                >
+                  <span class="font-heading text-5xl font-black text-[var(--border)] leading-none">
+                    +
+                  </span>
+                </div>
+              )}
             </div>
             <div class="p-6">
-              <h3 class="font-heading text-xl font-bold mb-2 text-[var(--color-foreground)]">
+              <h3 class="font-heading text-lg font-bold mb-2 text-[var(--text-primary)]">
                 {item.name}
               </h3>
               <p class="font-body text-sm text-[var(--text-secondary)] leading-relaxed">

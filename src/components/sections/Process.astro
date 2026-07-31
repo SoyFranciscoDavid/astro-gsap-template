@@ -6,35 +6,35 @@ import { siteConfig } from "@data/siteConfig";
 const { process } = siteConfig;
 ---
 
-<section id="craft" class="py-24 sm:py-32 bg-white">
+<section
+  id="craft"
+  data-process-section
+  class="py-24 sm:py-32 bg-[var(--bg-secondary)]"
+>
   <Container>
-    <header class="mb-16">
-      <Heading
-        as="span"
-        size="h4"
-        class="text-[var(--color-accent)] uppercase tracking-widest text-sm font-body"
-      >
+    <header class="mb-16 text-center" data-reveal>
+      <Heading as="span" size="h4" class="label">
         {process.subtitle}
       </Heading>
-      <Heading as="h2" size="h2" class="mt-2">
+      <Heading as="h2" size="h2" class="mt-3">
         {process.title}
       </Heading>
     </header>
 
-    <div class="grid gap-8 sm:grid-cols-2">
+    <div data-process-grid data-reveal class="grid gap-6 sm:grid-cols-2">
       {
         process.steps.map((step) => (
-          <article
-            class="border-brutal bg-[var(--color-background)] p-8 transition-all duration-200 hover:shadow-brutal hover:-translate-x-[3px] hover:-translate-y-[3px]"
-            style="box-shadow: var(--brutal-shadow-sm);"
-          >
-            <span class="block font-heading text-6xl font-bold text-[var(--color-primary)]/20 mb-4">
+          <article class="border border-[var(--border)] bg-[var(--surface)] rounded-[var(--radius-lg)] p-8 transition-all duration-300 hover:shadow-[var(--shadow-hover)] hover:-translate-y-1">
+            <span
+              data-parallax="8"
+              class="block font-heading text-6xl font-black text-[var(--color-primary)]/15 mb-3 leading-none"
+            >
               {step.number}
             </span>
-            <h3 class="font-heading text-2xl font-bold mb-3 text-[var(--color-foreground)]">
+            <h3 class="font-heading text-xl font-bold mb-3 text-[var(--text-primary)]">
               {step.title}
             </h3>
-            <p class="font-body text-[var(--text-secondary)] leading-relaxed">
+            <p class="font-body text-sm text-[var(--text-secondary)] leading-relaxed">
               {step.description}
             </p>
           </article>

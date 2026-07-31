@@ -1,173 +1,146 @@
-/* ==== VARIABLES ==== */
+/* =============================================
+   Design Tokens — Tailwind v4 @theme
+   ============================================= */
 
+@theme {
+  /* ---------- Colors ---------- */
+  --color-primary: #2d7d46;
+  --color-primary-on: #ffffff;
+  --color-secondary: #c4956a;
+  --color-secondary-on: #ffffff;
+  --color-accent: #7cb342;
+  --color-accent-on: #ffffff;
+  --color-success: #43a047;
+  --color-warning: #e8a838;
+  --color-error: #d32f2f;
+  --color-destructive: #d32f2f;
+
+  --color-background: #f8f6f2;
+  --color-background-secondary: #ffffff;
+  --color-background-tertiary: #f0ece6;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+
+  --color-foreground: #1a1a1a;
+  --color-muted: #9a9a9a;
+  --color-muted-bg: #ffffff;
+
+  --color-border: #e0d8d0;
+  --color-border-light: #ece8e2;
+  --color-border-focus: #2d7d46;
+
+  --color-content-primary: #1a1a1a;
+  --color-content-secondary: #5a5a5a;
+  --color-content-muted: #9a9a9a;
+
+  /* ---------- Typography ---------- */
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* ---------- Shadows ---------- */
+  --shadow-xs: 0 1px 2px rgba(26, 26, 26, 0.04);
+  --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.06);
+  --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.08);
+  --shadow-lg: 0 8px 24px rgba(26, 26, 26, 0.1);
+  --shadow-xl: 0 12px 36px rgba(26, 26, 26, 0.12);
+
+  /* ---------- Border Radius ---------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ---------- Easing ---------- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* =============================================
+   Legacy CSS Custom Properties (backward compat)
+   ============================================= */
 :root {
-  /* ---------- Color: paleta base ---------- */
-  --c1: 252, 127, 131;
-  --c2: 49, 190, 168;
+  /* Surfaces & text (legacy naming) */
+  --bg-primary: #f8f6f2;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0ece6;
+  --bg-footer: #1a1a1a;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #5a5a5a;
+  --text-muted: #9a9a9a;
+  --text-inverse: #ffffff;
+  --border: #e0d8d0;
+  --border-light: #ece8e2;
 
-  --color-primary: rgb(var(--c1));
-  --color-secondary: rgb(var(--c2));
-  --color-accent: #7fa3b0;
-  --color-success: #66bb6a;
-  --color-warning: #c9c62f;
-  --color-error: #b3432f;
+  /* On-colors for text on primary/secondary */
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
 
-  /* ---------- Color: superficies ---------- */
-  --bg-primary: #fff8f0;
-  --bg-secondary: #fff0e0;
-  --bg-footer: #060c16;
-  --surface: rgb(226, 246, 243);
-  --border: #c8cad1;
+  /* Hover shadow (used in cards & sections) */
+  --shadow-hover: 0 8px 24px rgba(26, 26, 26, 0.12);
 
-  /* ---------- Color: texto ---------- */
-  --text-primary: #333d3d; /* casi negro cálido */
-  --text-secondary: #56493b;
-  --text-muted: #908d8a;
+  /* Fluid font scale */
+  --fs-xs: clamp(0.6875rem, 0.65rem + 0.2vw, 0.75rem);
+  --fs-sm: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
+  --fs-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  --fs-md: clamp(1.125rem, 1.05rem + 0.38vw, 1.25rem);
+  --fs-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --fs-2xl: clamp(2rem, 1.6rem + 2vw, 3rem);
+  --fs-3xl: clamp(2.5rem, 2rem + 2.8vw, 4rem);
+  --fs-4xl: clamp(3.5rem, 6vw, 5rem);
 
-  --white: #ffffff;
-  --black: #17120c;
-
-  /* ---------- Color: overlays y gradientes ---------- */
-  --overlay-light: rgba(255, 255, 255, 0.55);
-  --overlay-dark: rgba(23, 18, 12, 0.55);
-  --gradient-primary: linear-gradient(135deg, #b5563c 0%, #8f4230 100%);
-  --gradient-secondary: linear-gradient(135deg, #6b7a4f 0%, #4f5c39 100%);
-  --gradient-hero: linear-gradient(
-    180deg,
-    rgba(23, 18, 12, 0.15) 0%,
-    rgba(23, 18, 12, 0.15) 40%,
-    rgba(23, 18, 12, 0.75) 100%
-  );
-
-  /* Versiones RGB (para usar con alpha) */
-  --color-primary-rgba: rgba(var(--c1), 0.8);
-  --color-secondary-rgba: rgba(var(--c2), 0.8);
-  --color-accent-rgb: 127, 163, 176;
-  --text-primary-rgb: 42, 33, 24;
-  --white-rgb: 255, 255, 255;
-  --black-rgb: 23, 18, 12;
-
-  /* ---------- Layout ---------- */
-  --container-xs: 480px;
-  --container-sm: 640px;
-  --container-md: 860px;
-  --container-lg: 1200px;
-  --container-xl: 1400px;
-
-  --header-height: clamp(64px, 8vw, 68px);
-  --section-padding: clamp(3rem, 8vw, 6rem);
-  --section-gap: clamp(48px, 7vw, 96px);
-
-  /* ---------- Border radius ---------- */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 36px;
-  --radius-full: 999px;
-
-  /* ---------- Sombras ---------- */
-  --shadow-xs: 0 1px 2px rgba(23, 18, 12, 0.06);
-  --shadow-sm: 0 2px 8px rgba(23, 18, 12, 0.08);
-  --shadow-md: 0 8px 24px rgba(23, 18, 12, 0.1);
-  --shadow-lg: 0 16px 48px rgba(23, 18, 12, 0.14);
-  --shadow-xl: 0 24px 64px rgba(23, 18, 12, 0.18);
-
-  --clay-shadow:
-    8px 8px 16px rgba(180, 140, 100, 0.15),
-    -4px -4px 12px rgba(255, 255, 255, 0.8);
-  --clay-shadow-lg:
-    12px 12px 24px rgba(180, 140, 100, 0.2),
-    -6px -6px 16px rgba(255, 255, 255, 0.9);
-  --clay-shadow-hover:
-    4px 4px 10px rgba(180, 140, 100, 0.12),
-    -2px -2px 8px rgba(255, 255, 255, 0.7);
-  --clay-inset:
-    inset 3px 3px 6px rgba(180, 140, 100, 0.12),
-    inset -2px -2px 4px rgba(255, 255, 255, 0.6);
-
-  /* ---------- Tipografía ---------- */
-  --font-display: "Roboto", sans-serif;
-  --font-body: "Roboto", sans-serif;
-
+  /* Font weights */
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
   --fw-bold: 700;
   --fw-black: 900;
 
-  /* Escala tipográfica fluida (clamp: min, preferido, max) */
-  --fs-xs: clamp(0.75rem, 0.71rem + 0.2vw, 0.8125rem);
-  --fs-sm: clamp(0.875rem, 0.83rem + 0.22vw, 0.9375rem);
-  --fs-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
-  --fs-md: clamp(1.125rem, 1.06rem + 0.32vw, 1.25rem);
-  --fs-lg: clamp(1.375rem, 1.28rem + 0.48vw, 1.625rem);
-  --fs-xl: clamp(1.75rem, 1.58rem + 0.85vw, 2.25rem);
-  --fs-2xl: clamp(2.25rem, 1.95rem + 1.5vw, 3.25rem);
-  --fs-3xl: clamp(3rem, 2.4rem + 3vw, 4.75rem);
-  --fs-4xl: clamp(3.75rem, 2.9rem + 4.2vw, 6.25rem);
+  /* Line heights */
+  --lh-none: 1;
+  --lh-tight: 1.05;
+  --lh-snug: 1.15;
+  --lh-normal: 1.4;
+  --lh-relaxed: 1.6;
 
-  --lh-tight: 1.1;
-  --lh-snug: 1.3;
-  --lh-normal: 1.55;
-  --lh-relaxed: 1.75;
-
-  --ls-tight: -0.02em;
+  /* Letter spacing */
+  --ls-tighter: -0.02em;
+  --ls-tight: -0.01em;
   --ls-normal: 0;
-  --ls-wide: 0.06em;
-  --ls-wider: 0.14em;
+  --ls-wide: 0.05em;
+  --ls-wider: 0.1em;
+  --ls-widest: 0.15em;
 
-  /* ---------- Espaciado (base 8px) ---------- */
-  --space-1: 0.25rem; /* 4px  */
-  --space-2: 0.5rem; /* 8px  */
-  --space-3: 0.75rem; /* 12px */
-  --space-4: 1rem; /* 16px */
-  --space-5: 1.5rem; /* 24px */
-  --space-6: 2rem; /* 32px */
-  --space-7: 3rem; /* 48px */
-  --space-8: 4rem; /* 64px */
-  --space-9: 6rem; /* 96px */
-  --space-10: 8rem; /* 128px */
-
-  /* ---------- Padding ---------- */
-  --padding-block: clamp(4rem, 8vw, 6rem);
-
-  /* ---------- Z-index ---------- */
+  /* Z-index */
   --z-header: 100;
   --z-dropdown: 200;
   --z-overlay: 300;
   --z-modal: 400;
   --z-tooltip: 500;
 
-  /* ---------- Blur ---------- */
-  --blur-glass: 16px;
-  --blur-backdrop: 8px;
+  /* Layout helpers */
+  --header-height: clamp(64px, 8vw, 68px);
+  --section-padding: clamp(4rem, 10vw, 8rem);
 
-  /* ---------- Opacidad ---------- */
-  --opacity-10: 0.1;
-  --opacity-20: 0.2;
-  --opacity-40: 0.4;
-  --opacity-60: 0.6;
-  --opacity-80: 0.8;
-  --opacity-100: 1;
-
-  /* ---------- Transiciones ---------- */
+  /* Transition durations */
   --transition-fast: 150ms;
-  --transition-normal: 280ms;
-  --transition-slow: 480ms;
+  --transition-normal: 250ms;
+  --transition-slow: 400ms;
 
-  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  --tr-background: background-color var(--transition-normal)
-    var(--ease-standard);
+  /* Shorthand transitions */
+  --tr-background: background-color var(--transition-normal) var(--ease-out);
   --tr-transform: transform var(--transition-normal) var(--ease-out);
   --tr-opacity: opacity var(--transition-normal) var(--ease-standard);
   --tr-color: color var(--transition-fast) var(--ease-standard);
   --tr-border: border-color var(--transition-normal) var(--ease-standard);
-  --tr-shadow: box-shadow var(--transition-normal) var(--ease-standard);
+  --tr-shadow: box-shadow var(--transition-normal) var(--ease-out);
   --tr-filter: filter var(--transition-normal) var(--ease-standard);
 }

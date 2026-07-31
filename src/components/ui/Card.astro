@@ -11,12 +11,11 @@ const { class: className, hover = true } = Astro.props;
 
 <div
   class={cn(
-    "border-brutal bg-white p-6 transition-all duration-200",
+    "border border-[var(--border)] bg-[var(--surface)] rounded-[var(--radius-lg)] p-6 transition-all duration-300",
     hover &&
-      "hover:shadow-brutal hover:-translate-x-[3px] hover:-translate-y-[3px] cursor-pointer",
+      "hover:shadow-[var(--shadow-hover)] hover:-translate-y-1 cursor-pointer",
     className,
   )}
-  style="box-shadow: var(--brutal-shadow-sm);"
 >
   <slot />
 </div>

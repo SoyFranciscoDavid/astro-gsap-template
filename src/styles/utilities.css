@@ -1,76 +1,39 @@
-.container {
+/* =============================================
+   Custom Utilities — Tailwind v4 @utility
+   ============================================= */
+
+@utility container {
   width: 100%;
-  max-width: var(--container-lg);
+  max-width: 1200px;
   margin-inline: auto;
   padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-.container--wide {
-  max-width: var(--container-xl);
+@utility container-wide {
+  max-width: 1400px;
 }
 
-.container--narrow {
-  max-width: var(--container-md);
-}
-.section {
-  padding-block: var(--section-padding);
-}
-.section--tight {
-  padding-block: calc(var(--section-padding) * 0.6);
-}
-/* ==== RESPONSIVE ==== */
-
-/* Pantallas muy pequeñas: reducir el padding lateral del contenedor */
-@media (max-width: 360px) {
-  .container {
-    padding-inline: var(--space-4);
-  }
+@utility container-narrow {
+  max-width: 860px;
 }
 
-/* Pantallas grandes: limitar el ancho de línea del texto editorial */
-@media (min-width: 1600px) {
-  .container--narrow {
-    max-width: 920px;
-  }
+@utility section {
+  padding-block: var(--section-padding, clamp(4rem, 10vw, 8rem));
 }
 
-/* Impresión: simplificar el diseño */
-@media print {
-  .header,
-  .footer,
-  .hero__scroll-indicator,
-  .cta {
-    display: none;
-  }
+@utility section-tight {
+  padding-block: calc(var(--section-padding, clamp(4rem, 10vw, 8rem)) * 0.6);
 }
-/* ---------- Grid utilitario reusado por varias secciones ---------- */
-.grid-auto {
+
+@utility grid-auto {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: var(--space-6);
+  gap: 2rem;
 }
 
-/* ---------- Imágenes responsivas con proporción controlada ---------- */
-.media-frame {
+@utility media-frame {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-lg);
-  background-color: var(--bg-tertiary);
-}
-
-/* ---------- Skip link para accesibilidad de teclado ---------- */
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: var(--space-4);
-  z-index: var(--z-tooltip);
-  padding: var(--space-3) var(--space-5);
-  background-color: var(--text-primary);
-  color: var(--white);
-  border-radius: var(--radius-sm);
-  transition: top var(--transition-fast) var(--ease-out);
-}
-
-.skip-link:focus {
-  top: var(--space-4);
+  border-radius: var(--radius-lg, 12px);
+  background-color: var(--bg-tertiary, #f0ece6);
 }

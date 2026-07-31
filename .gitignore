@@ -25,3 +25,10 @@ Thumbs.db
 # logs
 *.log
 npm-debug.log*
+
+# backups locales (nunca subir)
+.backups/
+
+# python (skills)
+__pycache__/
+*.pyc

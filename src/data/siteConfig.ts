@@ -172,21 +172,21 @@ export const siteConfig: SiteConfig = {
         name: "Línea Camionero",
         description:
           "Diseño sobrio de boca ancha para un cebado consistente. Comodidad absoluta para el uso diario.",
-        image: "assets/img4.png",
+        image: "c-1.png",
       },
       {
         id: "imperial",
         name: "Línea Imperial",
         description:
           "Calabazas seleccionadas de grueso grosor, forradas en cuero vacuno virolas trabajadas en alpaca pura.",
-        image: "assets/img1.png",
+        image: "c-2.png",
       },
       {
         id: "termos",
         name: "Termos de Gala",
         description:
           "Cuerpo de acero inoxidable de grado alimenticio con tecnología de vacío intermedio con retención térmica.",
-        image: "assets/img2.png",
+        image: "c-3.png",
       },
     ],
   },

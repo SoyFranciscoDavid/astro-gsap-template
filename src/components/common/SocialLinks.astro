@@ -47,19 +47,19 @@ const iconSizes = {
 };
 
 const baseStyles =
-  "inline-flex items-center justify-center rounded-xl transition-all duration-200";
+  "inline-flex items-center justify-center transition-all duration-200 rounded-[var(--radius-sm)]";
 
 const variants = {
   default:
-    "bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-focus)] hover:bg-[var(--bg-tertiary)]",
+    "bg-[var(--surface)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:bg-[var(--bg-tertiary)]",
   outline:
-    "border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]",
+    "border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--bg-tertiary)]",
   ghost:
-    "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]",
+    "text-[var(--text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--bg-tertiary)]",
 };
 ---
 
-<div class={className}>
+<div class=`${className} `>
   {
     socialItems.map((item) => (
       <a
@@ -67,7 +67,7 @@ const variants = {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Perfil de ${item.name}`}
-        class=""
+        class={`${baseStyles} ${variants[variant]} ${sizes[size]}`}
       >
         <Icon name={item.icon} class={iconSizes[size]} />
       </a>

@@ -1,5 +1,5 @@
 ---
-import "@styles/base.css";
+import "@styles/global.css";
 import { siteConfig } from "@data/siteConfig";
 
 interface Props {
@@ -30,11 +30,11 @@ const ogImageUrl = new URL(image, siteConfig.url).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Fonts: Archivo (headings) + Space Grotesk (body) -->
+    <!-- Google Fonts: Space Grotesk (headings + body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
 
@@ -60,35 +60,85 @@ const ogImageUrl = new URL(image, siteConfig.url).href;
     <meta name="twitter:title" content={siteTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    {
-      siteConfig.twitterHandle && (
-        <meta name="twitter:site" content={siteConfig.twitterHandle} />
-      )
-    }
-
-    <script is:inline>
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "dark";
-      })();
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    </script>
   </head>
   <body
-    class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased selection:bg-white selection:text-black"
+    class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased selection:bg-[var(--color-primary)] selection:text-white"
   >
     <slot />
+
+    <!-- GSAP global + Lenis smooth scroll -->
+    <script>
+      import gsap from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+      import { SplitText } from "gsap/SplitText";
+      import Lenis from "lenis";
+      import { initMateJourney } from "@scripts/mateJourney";
+      import { initScrollAnimations } from "@scripts/scrollAnimations";
+
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+      gsap.ticker.lagSmoothing(0);
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.5,
+      });
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      const title = document.querySelector("[data-title]");
+      const tl = gsap.timeline({
+        defaults: {
+          duration: 0.6,
+          ease: "power3.out",
+        },
+      });
+      tl.from('[data-nav="item"]', {
+        scaleX: 0,
+        duration: 1,
+        delay: 1,
+      }).fromTo(
+        '[data-hero="text"]',
+        { opacity: 0, y: 60, visibility: "visible" },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
+        "-=0.5",
+      );
+
+      if (title) {
+        let split = SplitText.create(title, {
+          type: "chars, words, lines",
+          mask: "lines",
+        });
+
+        gsap.from(split.chars, {
+          yPercent: () => gsap.utils.random(-100, 100),
+          rotation: () => gsap.utils.random(-30, 30),
+          autoAlpha: 0,
+          ease: "back.out(1.5)",
+          stagger: {
+            amount: 0.5,
+            from: "random",
+          },
+          duration: 1.75,
+        });
+      }
+
+      // ---- viaje del mate (módulo reutilizable en src/scripts/mateJourney.ts) ----
+      // Ajustes finos tuneados a mano; todo lo demás usa los defaults del módulo.
+      initMateJourney({
+        keyframes: { k2: { offsetY: 100 } }, // bajar un poco más el mate en el corredor
+        timing: { k3Delay: 100 }, // retraso en el arranque del segmento K2→K3
+      });
+
+      // ---- animaciones de scroll: fade-up, parallax, burst ----
+      // Se activan con atributos data-* en los componentes (ver scrollAnimations.ts)
+      initScrollAnimations();
+    </script>
   </body>
 </html>

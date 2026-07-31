@@ -7,6 +7,6 @@ interface Props {
 const { class: className, as: Tag = "div", ...rest } = Astro.props;
 ---
 
-<Tag class=`container ${className || ""}` } {...rest}>
+<Tag class={`container ${className || ""}`} {...rest}>
   <slot />
 </Tag>
