@@ -7,7 +7,14 @@ import { siteConfig } from "@data/siteConfig";
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-[var(--bg-footer)] text-white border-t border-white/10">
+<!-- overflow-clip: los hijos del reveal se trasladan 44px hacia abajo durante
+     la animación; sin esto, al scrollear rápido la barra/columnas sobresalían
+     por debajo de la caja oscura, agrandando temporalmente el área scrolleable
+     del documento (banda blanca bajo el footer que luego "se cubría de negro"
+     al terminar la animación y contraerse el scroll). -->
+<footer
+  class="bg-[var(--bg-footer)] text-white border-t border-white/10 overflow-clip"
+>
   <Container>
     <div class="py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
       <!-- Brand + Newsletter -->
@@ -120,8 +127,18 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Bottom -->
+    <!-- data-reveal-start="top bottom": la barra es el último elemento de la
+         página; con el start por defecto (top 85%) su trigger nunca llegaba a
+         dispararse y quedaba invisible + desplazada 44px (espacio en blanco
+         debajo del footer). Con este start se revela apenas entra al viewport.
+         data-reveal-static: solo fade de opacidad, SIN translate — al ser el
+         último elemento de la página, cualquier desplazamiento vertical
+         (y: 44px) agrandaba el área scrolleable del documento y dejaba una
+         banda blanca bajo el footer mientras corría la animación. -->
     <div
       data-reveal="self"
+      data-reveal-static
+      data-reveal-start="top bottom"
       class="border-t border-white/10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
     >
       <p class="font-body text-sm text-white/40">

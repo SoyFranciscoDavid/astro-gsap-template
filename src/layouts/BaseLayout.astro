@@ -101,13 +101,21 @@ const ogImageUrl = new URL(image, siteConfig.url).href;
       });
       tl.from('[data-nav="item"]', {
         scaleX: 0,
-        duration: 1,
-        delay: 1,
+        duration: 0.8,
+        delay: 0.3,
       }).fromTo(
         '[data-hero="text"]',
-        { opacity: 0, y: 60, visibility: "visible" },
-        { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
-        "-=0.5",
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.15,
+          // Garantiza el estado final visible (el badge no queda oculto si el
+          // tween se interrumpe) y limpia el transform para el CSS natural.
+          clearProps: "opacity,transform",
+        },
+        "-=0.3",
       );
 
       if (title) {

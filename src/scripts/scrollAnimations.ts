@@ -160,7 +160,11 @@ export function initScrollAnimations(
         stagger: cfg.reveal.stagger,
         scrollTrigger: {
           trigger: el,
-          start: cfg.reveal.start,
+          // Se puede sobreescribir por elemento con `data-reveal-start`.
+          // Necesario para el último elemento de la página (p. ej. la barra
+          // final del footer): con "top 85%" su trigger nunca se dispara y
+          // queda invisible para siempre + desplazado (espacio en blanco).
+          start: el.dataset.revealStart || cfg.reveal.start,
           once: cfg.reveal.once,
         },
         // Deja el elemento en su CSS natural (permite hovers con transform)

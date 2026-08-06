@@ -83,15 +83,26 @@ const DEFAULTS: MateJourneyConfig = {
     ghost: "[data-collection-ghost]",
   },
   imgClasses: {
-    remove: ["w-50", "mx-auto", "h-auto", "max-w-md", "md:w-full"],
+    // Ojo: la clase real de la <img> del hero es "w-70" (antes figuraba
+    // "w-50" y no se removía → conflicto w-70 vs w-full en el clon).
+    remove: ["w-70", "mx-auto", "h-auto", "max-w-md", "md:w-full"],
     add: ["w-full", "h-full", "object-cover"],
   },
   keyframes: {
-    k1: { scale: 0.95, rot: 6 },
+    // k1 = misma pose del hero (escala 1, sin rotación) para que el clon
+    // calce EXACTO con la imagen original oculta; antes rotaba 6° y
+    // encogía 0.95 sobre la placa de fondo → se veía torcido/raro.
+    k1: { scale: 1, rot: 0 },
     k2: { scale: 0.45, rot: 350, offsetY: 100 },
-    k3: { rot: -360 },
+    // k3: 350 → 0 = una vuelta limpia que TERMINA DERECHA. Terminar rotado
+    // (-10) dejaba al mate inclinado sobre el slot: su caja rotada (376×346)
+    // sobresalía 23px por lado de la card (330×330) → se veía torcido/cortado
+    // y el snap lo enderezaba de golpe. Terminando en 0 el snap es invisible.
+    k3: { rot: 0 },
   },
-  entrance: { scale: 0.85, rot: -8, duration: 1.1, delay: 1 },
+  // delay menor: el clon aparece rápido y no queda la placa vacía en el hero
+  // durante ~2s en desktop.
+  entrance: { scale: 0.85, rot: -8, duration: 1.1, delay: 0.4 },
   timing: { k3Delay: 100, k3Lead: null },
   corridor: { gap: "1.5rem", openGap: "14rem" },
   zIndex: 60,
