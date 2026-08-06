@@ -134,8 +134,37 @@ const ogImageUrl = new URL(image, siteConfig.url).href;
             from: "random",
           },
           duration: 1.75,
+          // Mismo criterio que el badge: al completar, estado natural visible.
+          clearProps: "opacity,visibility,transform",
         });
       }
+
+      // ---- Red de seguridad de la entrada del hero ----
+      // Si el navegador limita rAF (pestaña en segundo plano, throttling en
+      // móvil, ahorro de batería, preview embebido), el ticker de GSAP se
+      // congela y badge/descripción/CTAs quedan invisibles para siempre,
+      // porque el clearProps de los tweens solo corre al COMPLETAR.
+      // Acá se fuerza el estado final si la animación no terminó en 3s o en
+      // cuanto la pestaña vuelve a ser visible.
+      let entranceDone = false;
+      const forceHeroVisible = () => {
+        if (entranceDone) return;
+        entranceDone = true;
+        clearTimeout(safetyTimer);
+        gsap.set('[data-hero="text"]', { clearProps: "opacity,transform" });
+        gsap.set('[data-nav="item"]', { clearProps: "transform" });
+        gsap.set("[data-title], [data-title] *", {
+          clearProps: "opacity,visibility,transform",
+        });
+      };
+      const safetyTimer = setTimeout(forceHeroVisible, 3000);
+      tl.eventCallback("onComplete", () => {
+        entranceDone = true;
+        clearTimeout(safetyTimer);
+      });
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) forceHeroVisible();
+      });
 
       // ---- viaje del mate (módulo reutilizable en src/scripts/mateJourney.ts) ----
       // Ajustes finos tuneados a mano; todo lo demás usa los defaults del módulo.
